@@ -88,6 +88,8 @@ phi = numpy.ravel(phi)
 newphi = numpy.ravel(newphi)
 uvar = numpy.ravel(uvar[:,:])
 vvar = numpy.ravel(vvar[:,:])
+
+'''
 import sys
 sys.stdout.flush()
 print "Interp"
@@ -96,7 +98,7 @@ print "Set"
 sys.stdout.flush()
 newu = uinterp(newtheta,newphi)
 print "Done"
-
+'''
 
 '''
 print theta
