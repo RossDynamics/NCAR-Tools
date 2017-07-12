@@ -18,7 +18,6 @@ while 1:
 	uvar = file.variables["UGRD_P0_L100_GLC0"][:,:,:]
 	uvar = numpy.squeeze(uvar[30,:,:])
 	dim = numpy.shape(uvar)
-	print dim
 
 	vvar = file.variables["VGRD_P0_L100_GLC0"][:,:,:]
 	vvar = numpy.squeeze(vvar[30,:,:])
