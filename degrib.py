@@ -26,8 +26,9 @@ while 1:
 	iorg = 195
 	jorg = 155
 	#choose -41 +42, want 1000km domain centered at (36.75,-120.875), with 12.191km gridspacing, 83 is roughly 1000km
-	udesired = uvar[(iorg-41):(iorg+42),(jorg-41):(jorg+42)]
-	vdesired = vvar[(iorg-41):(iorg+42),(jorg-41):(jorg+42)]
+	#and convert m/s to km/hr for consisency
+	udesired = 3.6*uvar[(iorg-41):(iorg+42),(jorg-41):(jorg+42)]
+	vdesired = 3.6*vvar[(iorg-41):(iorg+42),(jorg-41):(jorg+42)]
 	dim =  udesired.shape
 
 	f = open('roms%04d.dat' % t, 'w')
