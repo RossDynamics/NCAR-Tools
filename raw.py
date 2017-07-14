@@ -46,22 +46,22 @@ lon = file.variables["gridlon_0"][:,:]
 # 36.75
 #120.875
 #Find the index of the origin
-'''
+print "want lat lon", 36.75, 120.875
 for i in range(dim[0]):
 	for j in range(dim[1]):
 		if numpy.fabs(lat[i,j]-36.75)<0.075 and numpy.fabs(lon[i,j]+120.875)<0.075:
-			print lat[i,j], lon[i,j]
+			print 'closest we can get is', lat[i,j], lon[i,j]
 			print i,j
 			iorg = i
 			jorg = j
-'''
+
 #hardcoded origin to save time
-iorg = 195
-jorg = 155
+#iorg = 195
+#jorg = 155
 #choose 42, want 1000km domain centered at (36.75,-120.875), with 12.191km gridspacing, 42 is roughly 500km
-latdes = lat[(iorg-41):(iorg+42),(jorg-41):(jorg+42)]
-londes = lon[(iorg-41):(iorg+42),(jorg-41):(jorg+42)]
-print latdes[41,41],londes[41,41]
+latdes = lat[(iorg-82):(iorg+83),(jorg-82):(jorg+83)]
+londes = lon[(iorg-82):(iorg+83),(jorg-82):(jorg+83)]
+print latdes[82,82],londes[82,82]
 print latdes.shape
 #udesired = uvar[(iorg-42):(iorg+42),(jorg-42):(jorg+42)]
 #vdesired = vvar[(iorg-42):(iorg+42),(jorg-42):(jorg+42)]
