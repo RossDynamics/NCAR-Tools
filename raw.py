@@ -59,9 +59,9 @@ for i in range(dim[0]):
 #iorg = 195
 #jorg = 155
 #choose 42, want 1000km domain centered at (36.75,-120.875), with 12.191km gridspacing, 42 is roughly 500km
-latdes = lat[(iorg-82):(iorg+83),(jorg-82):(jorg+83)]
-londes = lon[(iorg-82):(iorg+83),(jorg-82):(jorg+83)]
-print latdes[82,82],londes[82,82]
+latdes = lat[(iorg-103):(iorg+104),(jorg-103):(jorg+104)]
+londes = lon[(iorg-103):(iorg+104),(jorg-103):(jorg+104)]
+print latdes[103,103],londes[103,103]
 print latdes.shape
 #udesired = uvar[(iorg-42):(iorg+42),(jorg-42):(jorg+42)]
 #vdesired = vvar[(iorg-42):(iorg+42),(jorg-42):(jorg+42)]
