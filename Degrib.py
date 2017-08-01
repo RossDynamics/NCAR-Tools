@@ -2,7 +2,8 @@ import numpy, types
 import Nio
 import Ngl
 import os.path
-
+#This script takes Grib Files from NAM simulations and converts them
+#Into .dat format for  Newmanv3.1
 t=0
 Dates = ["20160609","20160610"]
 Initials = ["0000","0600","1200","1800"]
