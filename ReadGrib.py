@@ -6,34 +6,42 @@ Script reads a Grib File and gets basic information about the file and the domai
 !!! REQUIRES PyNIO and PyNGL from NCAR !!!
 """
 #Set Parameters
-Latorg = 36.75      #Desired Origin Lat
-Lonorg =-120.875    #Desired Origin Lon
-tol = 0.075         #How close to desired origin do you want to get
-filename = "../gribs/nam_218_20160609_0000_000.grb2"
-gridpointsI = 207 #Chose odd number so you will have the desired origin
-gridpointsJ = 207 #Chose odd number so you will have the desired origin
+Latorg = 41.3209371228     #Desired Origin Lat
+Lonorg =-70.53690039    #Desired Origin Lon
+tol = 0.025         #How close to desired origin do you want to get
+filename = "nam.t00z.conusnest.hiresf00.tm00.grib2"
+gridspacing = 3
+
+gridpointsI = 317 #Chose odd number so you will have the desired origin
+gridpointsJ = 317 #Chose odd number so you will have the desired origin
 #Open Grib File
 file = Nio.open_file(filename,"r")
 names = file.variables.keys()
 
-'''
+
 for i in range(len(names)):
-	print "\n" + names[i]
-	if names[i][:5]=="lv_IS":
+	#print "\n" + names[i]
+        if names[i][:5]=="lv_IS":
+            print names[i]
+            a = file.variables[names[i]][:]
+            print "a is", a[-1]
+        
+        if names[i]=="UGRD_P0_L100_GLC0":
 		print "\n" + names[i]
 		print file.variables[names[i]].dimensions
 		for attrib in file.variables[names[i]].attributes.keys():
 			print attrib + " has value ",  getattr(file.variables[names[i]],attrib)
-
-
-'''
+                a = file.variables[names[i]][:]
+                print a.shape
+                #print a
+                
 
 uvar = file.variables["UGRD_P0_L100_GLC0"][:,:,:]
-uvar = numpy.squeeze(uvar[30,:,:])
+uvar = numpy.squeeze(uvar[-1,:,:])
 dim = numpy.shape(uvar)
 print dim
 vvar = file.variables["VGRD_P0_L100_GLC0"][:,:,:]
-vvar = numpy.squeeze(vvar[30,:,:])
+vvar = numpy.squeeze(vvar[-1,:,:])
 
 lat = file.variables["gridlat_0"][:,:]
 lon = file.variables["gridlon_0"][:,:]
@@ -47,11 +55,30 @@ for i in range(dim[0]):
 			iorg = i
 			jorg = j
 
+u = 3.6*uvar
+v = 3.6*vvar
 
-mini = numpy.floor(gridpointsI/2.0)
-mini = numpy.floor(gridpointsI/2.0)
-maxj = numpy.ceil(gridpointsJ/2.0)
-maxj = numpy.ceil(gridpointsJ/2.0)
+umax = numpy.max(u)
+vmax = numpy.max(v)
+print "Max u", umax
+print "Max v", vmax
+
+space0 = gridspacing*(dim[0]-iorg-1)
+space1 = gridspacing*(dim[1]-jorg-1)
+print "Have " + str(space0) + " kms of space from origin N/S"
+print "Have " + str(space1) + " kms of space from origin E/W"
+print (dim[0]-iorg)
+print (dim[1]-jorg)
+
+time0 = space0/vmax
+time1 = space1/umax
+
+print "Can integrate for " + str(numpy.min([time0,time1])) + "hrs"
+
+mini = int(numpy.floor(gridpointsI/2.0))
+minj = int(numpy.floor(gridpointsJ/2.0))
+maxi = int(numpy.ceil(gridpointsI/2.0))
+maxj = int(numpy.ceil(gridpointsJ/2.0))
 print mini, minj, maxi, maxj
 latdes = lat[(iorg-mini):(iorg+maxi),(jorg-minj):(jorg+maxj)]
 londes = lon[(iorg-mini):(iorg+maxi),(jorg-minj):(jorg+maxj)]
