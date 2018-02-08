@@ -6,14 +6,21 @@ Script reads a Grib File and gets basic information about the file and the domai
 !!! REQUIRES PyNIO and PyNGL from NCAR !!!
 """
 #Set Parameters
-Latorg = 41.3209371228     #Desired Origin Lat
-Lonorg =-70.53690039    #Desired Origin Lon
-tol = 0.025         #How close to desired origin do you want to get
-filename = "nam.t00z.conusnest.hiresf00.tm00.grib2"
+#Marthas Vinyard
+#Latorg = 41.3209371228     #Desired Origin Lat
+#Lonorg =-70.53690039    #Desired Origin Lon
+#Kentland Farm
+Latorg = 37.19636
+Lonorg =-80.57834
+
+tol = 0.0125         #How close to desired origin do you want to get
+filename = "20170904_00_00.grib2"
 gridspacing = 3
 
-gridpointsI = 317 #Chose odd number so you will have the desired origin
-gridpointsJ = 317 #Chose odd number so you will have the desired origin
+#gridpointsI = 317 #Chose odd number so you will have the desired origin
+#gridpointsJ = 317 #Chose odd number so you will have the desired origin
+gridpointsI = 99 #Chose odd number so you will have the desired origin
+gridpointsJ = 101 #Chose odd number so you will have the desired origin
 #Open Grib File
 file = Nio.open_file(filename,"r")
 names = file.variables.keys()
@@ -21,19 +28,22 @@ names = file.variables.keys()
 
 for i in range(len(names)):
 	#print "\n" + names[i]
-        if names[i][:5]=="lv_IS":
-            print names[i]
+        if names[i][:8]=="lv_ISBL0":
+	    print "\n" + names[i]
+	    print file.variables[names[i]].dimensions
+	    for attrib in file.variables[names[i]].attributes.keys():
+		print attrib + " has value ",  getattr(file.variables[names[i]],attrib)
             a = file.variables[names[i]][:]
-            print "a is", a[-1]
-        
+            print a[:]
+                    
         if names[i]=="UGRD_P0_L100_GLC0":
-		print "\n" + names[i]
-		print file.variables[names[i]].dimensions
-		for attrib in file.variables[names[i]].attributes.keys():
-			print attrib + " has value ",  getattr(file.variables[names[i]],attrib)
-                a = file.variables[names[i]][:]
-                print a.shape
-                #print a
+	    print "\n" + names[i]
+	    print file.variables[names[i]].dimensions
+	    for attrib in file.variables[names[i]].attributes.keys():
+    		print attrib + " has value ",  getattr(file.variables[names[i]],attrib)
+            a = file.variables[names[i]][:]
+            print a.shape
+            #print a
                 
 
 uvar = file.variables["UGRD_P0_L100_GLC0"][:,:,:]
