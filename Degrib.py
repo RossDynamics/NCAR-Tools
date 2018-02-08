@@ -13,6 +13,9 @@ fileDir = "/mnt/d/NAM_GRIBS_HUNTERFLIGHTS/"
 Lat = 37.208
 Lon =-80.5803
 
+#Gridspacing
+gridspace = 3
+
 #Domain origin
 iorg = 195
 jorg = 155
@@ -22,8 +25,8 @@ gridpointsI = 99
 gridpointsJ = 101
 
 #Height Level
-z = 30 #800 milibar
-
+#z = 30 #800 milibar
+z = 41 #1000 milibar
 #Calculate start and end points based on 
 #domain size and origin
 imin = int(numpy.floor(gridpointsI/2.0))
@@ -56,11 +59,11 @@ for day in Dates:
             f.write("Surface Velocity ROMS data (km/hr)\n")	
             #f.write("Domain Center 36.7964N,-120.822E\n")
             f.write("Domain Center "+str(Lat)+"N,"+str(Lon)+"E\n")
-            f.write("#Data_XMin = "+str(-1*(dim[1]-1)/2*12.191)+"\n")
-            f.write("#Data_XMax = "+str((dim[1]-1)/2*12.191)+"\n")
+            f.write("#Data_XMin = "+str(-1*(dim[1]-1)/2*gridspace)+"\n")
+            f.write("#Data_XMax = "+str((dim[1]-1)/2*gridspace)+"\n")
             f.write("#Data_XRes = "+str(dim[1])+"\n")
-            f.write("#Data_YMin = "+str(-1*(dim[0]-1)/2*12.191)+"\n")
-            f.write("#Data_YMax = "+str((dim[0]-1)/2*12.191)+"\n")
+            f.write("#Data_YMin = "+str(-1*(dim[0]-1)/2*gridspace)+"\n")
+            f.write("#Data_YMax = "+str((dim[0]-1)/2*gridspace)+"\n")
             f.write("#Data_YRes = "+str(dim[0])+"\n")
             f.write("ZONE T=\"%04d\" I=" % (t+1) +str(dim[1])+" J="+str(dim[0])+"\n")
             for i in range(dim[0]):
@@ -92,11 +95,11 @@ f = open('roms%04d.dat' % t, 'w')
 f.write("Surface Velocity ROMS data (km/hr)\n")	
 #f.write("Domain Center 36.7964N,-120.822E\n")
 f.write("Domain Center "+str(Lat)+"N,"+str(Lon)+"E\n")
-f.write("#Data_XMin = "+str(-1*(dim[1]-1)/2*12.191)+"\n")
-f.write("#Data_XMax = "+str((dim[1]-1)/2*12.191)+"\n")
+f.write("#Data_XMin = "+str(-1*(dim[1]-1)/2*gridspace)+"\n")
+f.write("#Data_XMax = "+str((dim[1]-1)/2*gridspace)+"\n")
 f.write("#Data_XRes = "+str(dim[1])+"\n")
-f.write("#Data_YMin = "+str(-1*(dim[0]-1)/2*12.191)+"\n")
-f.write("#Data_YMax = "+str((dim[0]-1)/2*12.191)+"\n")
+f.write("#Data_YMin = "+str(-1*(dim[0]-1)/2*gridspace)+"\n")
+f.write("#Data_YMax = "+str((dim[0]-1)/2*gridspace)+"\n")
 f.write("#Data_YRes = "+str(dim[0])+"\n")
 f.write("ZONE T=\"%04d\" I=" % (t+1) +str(dim[1])+" J="+str(dim[0])+"\n")
 for i in range(dim[0]):

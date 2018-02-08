@@ -34,7 +34,7 @@ for i in range(len(names)):
 	    for attrib in file.variables[names[i]].attributes.keys():
 		print attrib + " has value ",  getattr(file.variables[names[i]],attrib)
             a = file.variables[names[i]][:]
-            print a[:]
+            print a[41]
                     
         if names[i]=="UGRD_P0_L100_GLC0":
 	    print "\n" + names[i]
