@@ -26,15 +26,15 @@ z = 30 #800 milibar
 
 #Calculate start and end points based on 
 #domain size and origin
-mini = int(numpy.floor(gridpointsI/2.0))
-minj = int(numpy.floor(gridpointsJ/2.0))
-maxi = int(numpy.ceil(gridpointsI/2.0))
-maxj = int(numpy.ceil(gridpointsJ/2.0))
+imin = int(numpy.floor(gridpointsI/2.0))
+jmin = int(numpy.floor(gridpointsJ/2.0))
+imax = int(numpy.ceil(gridpointsI/2.0))
+jmax = int(numpy.ceil(gridpointsJ/2.0))
 
 for day in Dates:
     for init in Initials:
         for hr in Hours:
-            filename = fileDir+day+"_"+init+"_"+hr+".grb2"
+            filename = fileDir+day+"_"+init+"_"+hr+".grib2"
             print filename
             
             file = Nio.open_file(filename,"r")
